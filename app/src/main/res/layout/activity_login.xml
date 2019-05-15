@@ -31,6 +31,7 @@
         android:layout_margin="20dp"
         android:elevation="10dp"
         android:gravity="center"
+        android:background="@color/primary"
         android:orientation="vertical"
         android:padding="20dp">
 
@@ -39,7 +40,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Login"
-            android:textColor="@color/primary"
+            android:textColor="@color/white"
             android:textSize="19dp"
             android:textStyle="bold" />
 
@@ -56,6 +57,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
             android:hint="User Name"
+            android:backgroundTint="@color/white"
             android:inputType="textCapSentences"
             android:lines="1"
             android:maxLength="15"
@@ -77,6 +79,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
             android:hint="Password"
+            android:backgroundTint="@color/white"
             android:inputType="textCapSentences"
             android:lines="1"
             android:maxLength="15"
@@ -92,7 +95,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="30dp"
-            android:background="@drawable/green_border"
+            android:background="@drawable/blue_border"
             android:text="Login"
             android:elevation="20dp"
             android:textAllCaps="false"
@@ -106,7 +109,7 @@
             android:layout_gravity="end"
             android:layout_marginTop="15dp"
             android:text="Forgot Password ?"
-            android:textColor="@color/darkgray"
+            android:textColor="@color/white"
             android:textSize="13dp" />
 
 
