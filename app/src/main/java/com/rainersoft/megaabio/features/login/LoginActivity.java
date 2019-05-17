@@ -29,23 +29,23 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, ErrorVi
     @Inject
     LoginPresenter mainPresenter;
 
-    @BindView(R.id.view_error)
-    ErrorView errorView;
-
-    @BindView(R.id.progress)
-    ProgressBar progressBar;
-
-
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+//    @BindView(R.id.view_error)
+//    ErrorView errorView;
+//
+//    @BindView(R.id.progress)
+//    ProgressBar progressBar;
+//
+//
+//    @BindView(R.id.toolbar)
+//    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setSupportActionBar(toolbar);
-        errorView.setErrorListener(this);
-        mainPresenter.getPokemon(POKEMON_COUNT);
+//        setSupportActionBar(toolbar);
+//        errorView.setErrorListener(this);
+//        mainPresenter.getPokemon(POKEMON_COUNT);
     }
 
 
@@ -79,15 +79,15 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, ErrorVi
     public void showProgress(boolean show) {
         if (show) {
 
-            errorView.setVisibility(View.GONE);
+//            errorView.setVisibility(View.GONE);
         } else {
-            progressBar.setVisibility(View.GONE);
+//            progressBar.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void showError(Throwable error) {
-        errorView.setVisibility(View.VISIBLE);
+//        errorView.setVisibility(View.VISIBLE);
         Timber.e(error, "There was an error retrieving the pokemon");
     }
 
