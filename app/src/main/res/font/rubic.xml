@@ -5,7 +5,7 @@
         android:fontStyle="normal"
         android:fontWeight="400" />
     <font
-        android:font="@font/rubik_mediumitalic"
+        android:font="@font/rubik_medium_italic"
         android:fontStyle="italic"
         android:fontWeight="400" />
 
@@ -14,7 +14,7 @@
         android:fontStyle="normal"
         android:fontWeight="700" />
     <font
-        android:font="@font/rubik_blackitalic"
+        android:font="@font/rubik_black_italic"
         android:fontStyle="italic"
         android:fontWeight="700" />
 </font-family>

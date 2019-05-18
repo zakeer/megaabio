@@ -4,7 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import com.rainersoft.megaabio.data.remote.PokemonService;
+import com.rainersoft.megaabio.data.remote.ApiService;
 import retrofit2.Retrofit;
 
 /**
@@ -15,7 +15,7 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    PokemonService providePokemonApi(Retrofit retrofit) {
-        return retrofit.create(PokemonService.class);
+    ApiService providePokemonApi(Retrofit retrofit) {
+        return retrofit.create(ApiService.class);
     }
 }

@@ -5,8 +5,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import com.rainersoft.megaabio.data.model.response.Pokemon;
-import com.rainersoft.megaabio.data.remote.PokemonService;
+import com.rainersoft.megaabio.data.model.request.LoginRequest;
+import com.rainersoft.megaabio.data.model.response.LoginResponse;
+import com.rainersoft.megaabio.data.remote.ApiService;
 import io.reactivex.Single;
 
 /**
@@ -15,15 +16,15 @@ import io.reactivex.Single;
 @Singleton
 public class DataManager {
 
-    private PokemonService pokemonService;
+    private ApiService apiService;
 
     @Inject
-    public DataManager(PokemonService pokemonService) {
-        this.pokemonService = pokemonService;
+    public DataManager(ApiService apiService) {
+        this.apiService = apiService;
     }
 
     public Single<List<String>> getPokemonList(int limit) {
-        return pokemonService
+        return apiService
                 .getPokemonList(limit)
                 .toObservable()
                 .flatMapIterable(namedResources -> namedResources.results)
@@ -31,7 +32,10 @@ public class DataManager {
                 .toList();
     }
 
-    public Single<Pokemon> getPokemon(String name) {
-        return pokemonService.getPokemon(name);
+
+    public Single<LoginResponse> loginUser(LoginRequest loginRequest) {
+        return apiService.loginUser(loginRequest);
     }
+
+
 }

@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import com.rainersoft.megaabio.data.DataManager;
-import com.rainersoft.megaabio.data.remote.PokemonService;
+import com.rainersoft.megaabio.data.remote.ApiService;
 import com.rainersoft.megaabio.injection.ApplicationContext;
 
 import static org.mockito.Mockito.mock;
@@ -48,7 +48,7 @@ public class ApplicationTestModule {
 
     @Provides
     @Singleton
-    PokemonService provideMvpBoilerplateService() {
-        return mock(PokemonService.class);
+    ApiService provideMvpBoilerplateService() {
+        return mock(ApiService.class);
     }
 }

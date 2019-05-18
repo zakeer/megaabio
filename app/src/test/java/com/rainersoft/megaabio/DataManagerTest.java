@@ -14,7 +14,7 @@ import com.rainersoft.megaabio.data.DataManager;
 import com.rainersoft.megaabio.data.model.response.NamedResource;
 import com.rainersoft.megaabio.data.model.response.Pokemon;
 import com.rainersoft.megaabio.data.model.response.PokemonListResponse;
-import com.rainersoft.megaabio.data.remote.PokemonService;
+import com.rainersoft.megaabio.data.remote.ApiService;
 import com.rainersoft.megaabio.util.RxSchedulersOverrideRule;
 import io.reactivex.Single;
 
@@ -32,7 +32,7 @@ public class DataManagerTest {
     public final RxSchedulersOverrideRule overrideSchedulersRule = new RxSchedulersOverrideRule();
 
     @Mock
-    private PokemonService mockPokemonService;
+    private ApiService mockPokemonService;
 
     private DataManager dataManager;
 

@@ -8,6 +8,9 @@ import android.view.MenuItem;
 import java.util.concurrent.atomic.AtomicLong;
 
 import butterknife.ButterKnife;
+
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 import com.rainersoft.megaabio.MvpStarterApplication;
 import com.rainersoft.megaabio.injection.component.ActivityComponent;
 import com.rainersoft.megaabio.injection.component.ConfigPersistentComponent;
@@ -36,6 +39,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
         ButterKnife.bind(this);
+        Logger.addLogAdapter(new AndroidLogAdapter());
 
         // Create the ActivityComponent and reuses cached ConfigPersistentComponent if this is
         // being called after a configuration change.

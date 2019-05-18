@@ -1,6 +1,7 @@
 package com.rainersoft.megaabio.features.login;
 
 import com.rainersoft.megaabio.data.DataManager;
+import com.rainersoft.megaabio.data.model.request.LoginRequest;
 import com.rainersoft.megaabio.features.base.BasePresenter;
 import com.rainersoft.megaabio.injection.ConfigPersistent;
 import com.rainersoft.megaabio.util.rx.scheduler.SchedulerUtils;
@@ -22,16 +23,16 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
         super.attachView(mvpView);
     }
 
-    public void getPokemon(int limit) {
+    public void loginUser(LoginRequest loginRequest) {
         checkViewAttached();
         getView().showProgress(true);
         dataManager
-                .getPokemonList(limit)
+                .loginUser(loginRequest)
                 .compose(SchedulerUtils.ioToMain())
                 .subscribe(
-                        pokemons -> {
+                        loginResponse -> {
                             getView().showProgress(false);
-                            getView().showPokemon(pokemons);
+                            // getView().showPokemon(pokemons);
                         },
                         throwable -> {
                             getView().showProgress(false);

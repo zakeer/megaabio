@@ -6,19 +6,25 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.rainersoft.megaabio.R;
+import com.rainersoft.megaabio.data.model.request.LoginRequest;
+import com.rainersoft.megaabio.data.model.response.LoginResponse;
 import com.rainersoft.megaabio.features.base.BaseActivity;
 import com.rainersoft.megaabio.features.common.ErrorView;
 import com.rainersoft.megaabio.injection.component.ActivityComponent;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
@@ -29,8 +35,11 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, ErrorVi
     @Inject
     LoginPresenter mainPresenter;
 
-//    @BindView(R.id.view_error)
-//    ErrorView errorView;
+    @BindView(R.id.etUsername)
+    AutoCompleteTextView etUsername;
+
+    @BindView(R.id.etPassword)
+    EditText etPassword;
 //
 //    @BindView(R.id.progress)
 //    ProgressBar progressBar;
@@ -70,29 +79,37 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, ErrorVi
         mainPresenter.detachView();
     }
 
-    @Override
-    public void showPokemon(List<String> pokemon) {
-
-    }
 
     @Override
     public void showProgress(boolean show) {
         if (show) {
 
-//            errorView.setVisibility(View.GONE);
         } else {
-//            progressBar.setVisibility(View.GONE);
+
         }
     }
 
     @Override
     public void showError(Throwable error) {
 //        errorView.setVisibility(View.VISIBLE);
-        Timber.e(error, "There was an error retrieving the pokemon");
+        Timber.e(error, "There was an error in login");
+    }
+
+    @Override
+    public void loginSuccess(LoginResponse loginResponse) {
+
     }
 
     @Override
     public void onReloadData() {
-        mainPresenter.getPokemon(POKEMON_COUNT);
+    }
+
+    @OnClick(R.id.btnLogin)
+    public void loginUser(View btnLogin) {
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setUsername( etUsername.getText().toString() );
+        loginRequest.setPassword( etPassword.getText().toString() );
+
+        mainPresenter.loginUser(loginRequest);
     }
 }
