@@ -63,6 +63,7 @@
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
+            android:layout_marginBottom="12dp"
             android:layout_height="wrap_content">
 
             <EditText
@@ -79,9 +80,9 @@
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:text="Login"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:textAllCaps="false" />
 
 
         <TextView

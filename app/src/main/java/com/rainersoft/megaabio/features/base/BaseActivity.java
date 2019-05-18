@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.util.LongSparseArray;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -16,6 +17,7 @@ import com.rainersoft.megaabio.injection.component.ActivityComponent;
 import com.rainersoft.megaabio.injection.component.ConfigPersistentComponent;
 import com.rainersoft.megaabio.injection.component.DaggerConfigPersistentComponent;
 import com.rainersoft.megaabio.injection.module.ActivityModule;
+
 import timber.log.Timber;
 
 /**
@@ -98,5 +100,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         detachPresenter();
         super.onDestroy();
+    }
+
+    protected void showSuccess(String message) {
+        Toast.makeText(this, ""+message, Toast.LENGTH_SHORT).show();
+    }
+
+    protected void showError(String message) {
+        showSuccess(message);
     }
 }

@@ -97,7 +97,11 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, ErrorVi
 
     @Override
     public void loginSuccess(LoginResponse loginResponse) {
-
+        if(loginResponse.getStatus().equals("true")) {
+            showSuccess("Login Success");
+        } else {
+            showError("Invalid Login");
+        }
     }
 
     @Override

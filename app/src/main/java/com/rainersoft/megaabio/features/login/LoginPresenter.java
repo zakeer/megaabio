@@ -32,7 +32,7 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
                 .subscribe(
                         loginResponse -> {
                             getView().showProgress(false);
-                            // getView().showPokemon(pokemons);
+                             getView().loginSuccess(loginResponse);
                         },
                         throwable -> {
                             getView().showProgress(false);

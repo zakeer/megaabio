@@ -26,8 +26,8 @@ ext {
             junit           : '4.12',
             robolectric     : '3.4.2',
             assertj         : '1.2.0',
-            logger          : '2.2.0'
-
+            logger          : '2.2.0',
+            toasty          : '1.4.2'
     ]
 
     mockito = [mockito: "org.mockito:mockito-core:$versions.mockito"]
@@ -113,6 +113,7 @@ ext {
     butterKnifeCompiler = "com.jakewharton:butterknife-compiler:$versions.butterKnife"
 
     orhanobutLogger = "com.orhanobut:logger:$versions.logger"
+    toasty = "com.github.GrenderG:Toasty:$versions.toasty"
 
     glide = "com.github.bumptech.glide:glide:$versions.glide"
     glideCompiler = "com.github.bumptech.glide:compiler:$versions.glide"
