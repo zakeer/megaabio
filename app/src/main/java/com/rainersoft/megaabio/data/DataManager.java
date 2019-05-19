@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 
 import com.rainersoft.megaabio.data.model.request.LoginRequest;
 import com.rainersoft.megaabio.data.model.response.LoginResponse;
+import com.rainersoft.megaabio.data.model.response.ProductMetaDetailListResponse;
 import com.rainersoft.megaabio.data.remote.ApiService;
 import io.reactivex.Single;
 
@@ -35,6 +36,10 @@ public class DataManager {
 
     public Single<LoginResponse> loginUser(LoginRequest loginRequest) {
         return apiService.loginUser(loginRequest);
+    }
+
+    public Single<ProductMetaDetailListResponse> getMetaDetails() {
+        return apiService.getMetaDetails();
     }
 
 

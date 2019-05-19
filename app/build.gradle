@@ -27,6 +27,9 @@ android {
 
         buildConfigField("String", "POKEAPI_API_URL",
                 "\"${MeghanaApiUrl}\"")
+
+        buildConfigField("String", "IMAGE_BASE_URL",
+                "\"${ImageBaseUrl}\"")
     }
     buildTypes {
         release {

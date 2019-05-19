@@ -28,6 +28,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
 
     @Inject
     PokemonAdapter pokemonAdapter;
+
     @Inject
     MainPresenter mainPresenter;
 

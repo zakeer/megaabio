@@ -1,5 +1,6 @@
 package com.rainersoft.megaabio.features.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.util.LongSparseArray;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import butterknife.ButterKnife;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.rainersoft.megaabio.MvpStarterApplication;
+import com.rainersoft.megaabio.features.home.HomeActivity;
 import com.rainersoft.megaabio.injection.component.ActivityComponent;
 import com.rainersoft.megaabio.injection.component.ConfigPersistentComponent;
 import com.rainersoft.megaabio.injection.component.DaggerConfigPersistentComponent;
@@ -108,5 +110,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void showError(String message) {
         showSuccess(message);
+    }
+
+    protected void gotoHome() {
+        Intent homeIntent = new Intent(this, HomeActivity.class);
+        startActivity(homeIntent);
     }
 }

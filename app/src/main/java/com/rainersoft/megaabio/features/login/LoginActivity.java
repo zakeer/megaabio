@@ -30,7 +30,6 @@ import timber.log.Timber;
 
 public class LoginActivity extends BaseActivity implements LoginMvpView, ErrorView.ErrorListener {
 
-    private static final int POKEMON_COUNT = 20;
 
     @Inject
     LoginPresenter mainPresenter;
@@ -99,6 +98,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, ErrorVi
     public void loginSuccess(LoginResponse loginResponse) {
         if(loginResponse.getStatus().equals("true")) {
             showSuccess("Login Success");
+            gotoHome();
         } else {
             showError("Invalid Login");
         }
