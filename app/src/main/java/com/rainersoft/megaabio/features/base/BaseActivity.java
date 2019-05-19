@@ -1,10 +1,12 @@
 package com.rainersoft.megaabio.features.base;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.util.LongSparseArray;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -116,4 +118,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         Intent homeIntent = new Intent(this, HomeActivity.class);
         startActivity(homeIntent);
     }
+
+    public void close(View view) {
+        finish();
+    }
+
 }

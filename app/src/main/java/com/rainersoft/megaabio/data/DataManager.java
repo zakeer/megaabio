@@ -5,7 +5,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import com.rainersoft.megaabio.data.model.request.AllResponseRequest;
 import com.rainersoft.megaabio.data.model.request.LoginRequest;
+import com.rainersoft.megaabio.data.model.response.AllResponse;
 import com.rainersoft.megaabio.data.model.response.LoginResponse;
 import com.rainersoft.megaabio.data.model.response.ProductMetaDetailListResponse;
 import com.rainersoft.megaabio.data.remote.ApiService;
@@ -40,6 +42,10 @@ public class DataManager {
 
     public Single<ProductMetaDetailListResponse> getMetaDetails() {
         return apiService.getMetaDetails();
+    }
+
+    public Single<AllResponse> getAllResponse(AllResponseRequest allResponseRequest) {
+        return apiService.getAllResponse(allResponseRequest);
     }
 
 

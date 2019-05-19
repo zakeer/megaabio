@@ -1,5 +1,6 @@
 package com.rainersoft.megaabio.data.remote;
 
+import com.rainersoft.megaabio.data.model.request.AllResponseRequest;
 import com.rainersoft.megaabio.data.model.request.LoginRequest;
 import com.rainersoft.megaabio.data.model.request.OrderRequest;
 import com.rainersoft.megaabio.data.model.response.AllResponse;
@@ -34,8 +35,8 @@ public interface ApiService {
     @GET("productmeta/getMetaDetails")
     Single<ProductMetaDetailListResponse> getMetaDetails();
 
-    @GET("products/getAllResponse")
-    Single<AllResponse> getAllResponse();
+    @POST("products/getAllResponse")
+    Single<AllResponse> getAllResponse(@Body AllResponseRequest allResponseRequest);
 
     @GET("orders/get_single_record?id={id}")
     Single<SingleRecordOrder> getSingleRecordOrder(@Path("id") String id);

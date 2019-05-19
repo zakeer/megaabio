@@ -8,6 +8,7 @@ import com.rainersoft.megaabio.R;
 import com.rainersoft.megaabio.data.model.response.MetaResponseProduct;
 import com.rainersoft.megaabio.features.base.BaseActivity;
 import com.rainersoft.megaabio.features.common.ErrorView;
+import com.rainersoft.megaabio.features.product.ProductsActivity;
 import com.rainersoft.megaabio.injection.component.ActivityComponent;
 
 import java.util.List;
@@ -47,6 +48,7 @@ public class HomeActivity extends BaseActivity implements HomeMvpView, ErrorView
                                 product -> {
                                     // startActivity(DetailActivity.getStartIntent(this, pokemon))
                                     showError(product.getProductName());
+                                    ProductsActivity.startActivity(HomeActivity.this, product);
                                 },
                                 throwable -> {
                                     Timber.e(throwable, "Product click failed");
