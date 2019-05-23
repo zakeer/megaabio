@@ -27,7 +27,8 @@ ext {
             robolectric     : '3.4.2',
             assertj         : '1.2.0',
             logger          : '2.2.0',
-            toasty          : '1.4.2'
+            paperDB         : '2.6',
+            rxPaperDB       : '1.4.0'
     ]
 
     mockito = [mockito: "org.mockito:mockito-core:$versions.mockito"]
@@ -114,6 +115,8 @@ ext {
 
     orhanobutLogger = "com.orhanobut:logger:$versions.logger"
     toasty = "com.github.GrenderG:Toasty:$versions.toasty"
+    paperDB = "io.paperdb:paperdb:$versions.paperDB"
+    rxPaperDB = "com.github.pakoito:RxPaper2:$versions.rxPaperDB"
 
     glide = "com.github.bumptech.glide:glide:$versions.glide"
     glideCompiler = "com.github.bumptech.glide:compiler:$versions.glide"
@@ -123,7 +126,7 @@ ext {
     supportLibs = supportDeps.values()
     networkLibs = retrofit.values() + okHttp.values()
     rxJavaLibs = rxJava.values()
-    otherLibs = [butterKnife, timber, dagger, glide, glideOkhttp, orhanobutLogger]
+    otherLibs = [butterKnife, timber, dagger, glide, glideOkhttp, orhanobutLogger, paperDB, rxPaperDB]
 
     debugLibs = onlyDebug.values() + leakCannary
     releaseLibs = onlyRelease.values() + leakCannary

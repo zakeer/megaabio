@@ -1,4 +1,4 @@
-package com.rainersoft.megaabio.features.product;
+package com.rainersoft.megaabio.features.cart;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,15 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.rainersoft.megaabio.R;
-import com.rainersoft.megaabio.data.model.request.AllResponseRequest;
-import com.rainersoft.megaabio.data.model.response.AllResponse;
-import com.rainersoft.megaabio.data.model.response.MetaResponseProduct;
 import com.rainersoft.megaabio.data.model.response.Product;
 import com.rainersoft.megaabio.features.base.BaseActivity;
 import com.rainersoft.megaabio.features.common.ErrorView;
-import com.rainersoft.megaabio.features.home.HomeActivity;
+import com.rainersoft.megaabio.features.product.ProductsAdapter;
 import com.rainersoft.megaabio.injection.component.ActivityComponent;
 
 import java.util.ArrayList;
@@ -25,21 +21,17 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import io.paperdb.Paper;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
-public class ProductsActivity extends BaseActivity implements ProductDetailsMvpView, ErrorView.ErrorListener {
+import static com.rainersoft.megaabio.features.product.ProductsActivity.DECREMENT;
+import static com.rainersoft.megaabio.features.product.ProductsActivity.INCREMENT;
+import static com.rainersoft.megaabio.features.product.ProductsActivity.REMOVE;
 
-    public final static String PRODUCT_KEY = "PRODUCT_KEY";
-    public final static String INCREMENT = "INCREMENT";
-    public final static String DECREMENT = "DECREMENT";
-    public final static String REMOVE = "REMOVE";
-
-    MetaResponseProduct metaResponseProduct;
+public class CartActivity extends BaseActivity implements  CartMvpView, ErrorView.ErrorListener {
 
     @Inject
-    ProductDetailsPresenter mainPresenter;
+    CartPresenter mainPresenter;
 
     @Inject
     ProductsAdapter productsAdapter;
@@ -54,30 +46,20 @@ public class ProductsActivity extends BaseActivity implements ProductDetailsMvpV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getIntent().getExtras() != null) {
-            String metaProductJson = getIntent().getExtras().getString(ProductsActivity.PRODUCT_KEY);
-            if (metaProductJson == null) {
-                gotoHome();
-                return;
-            }
-
-            metaResponseProduct = new Gson().fromJson(metaProductJson, MetaResponseProduct.class);
-        } else {
-            gotoHome();
-            return;
-        }
-
         rcvProductListView.setAdapter(productsAdapter);
         productsAdapter.setContext(this);
 
-        AllResponseRequest allResponseRequest = new AllResponseRequest();
-        allResponseRequest.setCompanyId(metaResponseProduct.getComapnyId());
-        allResponseRequest.setProductMetaId(metaResponseProduct.getProductMetaId());
-        mainPresenter.getAllResponse(allResponseRequest);
-
-        tvTitle.setText(metaResponseProduct.getProductName());
+        showProducts();
         productClickUpdate();
+    }
 
+    private void showProducts() {
+        HashMap<String, Product> cart = getCartProducts();
+        List<Product> productDetails = new ArrayList<>();
+        for(String productId: cart.keySet()) {
+            productDetails.add(cart.get(productId));
+        }
+        productsAdapter.setProductsList(productDetails);
     }
 
     private void productClickUpdate() {
@@ -111,17 +93,16 @@ public class ProductsActivity extends BaseActivity implements ProductDetailsMvpV
         mainPresenter.addDisposable(disposable);
     }
 
-    public static void startActivity(Context context, MetaResponseProduct product) {
-        Intent intent = new Intent(context, ProductsActivity.class);
-        intent.putExtra(ProductsActivity.PRODUCT_KEY, new Gson().toJson(product));
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_cart;
+    }
+
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, CartActivity.class);
         context.startActivity(intent);
     }
 
-
-    @Override
-    protected int getLayout() {
-        return R.layout.activity_products;
-    }
 
     @Override
     protected void inject(ActivityComponent activityComponent) {
@@ -139,11 +120,6 @@ public class ProductsActivity extends BaseActivity implements ProductDetailsMvpV
     }
 
     @Override
-    public void onReloadData() {
-
-    }
-
-    @Override
     public void showProgress(boolean show) {
 
     }
@@ -154,19 +130,7 @@ public class ProductsActivity extends BaseActivity implements ProductDetailsMvpV
     }
 
     @Override
-    public void allResponse(AllResponse allResponse) {
+    public void onReloadData() {
 
-    }
-
-    @Override
-    public void products(List<Product> productDetails) {
-        HashMap<String, Product> cart = getCartProducts();
-        for (Product product : productDetails) {
-            String productId = product.getProductId();
-            if (cart.containsKey(productId)) {
-                product.setQuantity(cart.get(productId).getQuantity());
-            }
-        }
-        productsAdapter.setProductsList(productDetails);
     }
 }

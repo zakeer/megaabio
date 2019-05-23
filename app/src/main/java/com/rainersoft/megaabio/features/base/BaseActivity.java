@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 import butterknife.ButterKnife;
@@ -16,12 +17,16 @@ import butterknife.ButterKnife;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.rainersoft.megaabio.MvpStarterApplication;
+import com.rainersoft.megaabio.data.model.response.Product;
+import com.rainersoft.megaabio.features.cart.CartActivity;
 import com.rainersoft.megaabio.features.home.HomeActivity;
+import com.rainersoft.megaabio.features.order.OrderActivity;
 import com.rainersoft.megaabio.injection.component.ActivityComponent;
 import com.rainersoft.megaabio.injection.component.ConfigPersistentComponent;
 import com.rainersoft.megaabio.injection.component.DaggerConfigPersistentComponent;
 import com.rainersoft.megaabio.injection.module.ActivityModule;
 
+import io.paperdb.Paper;
 import timber.log.Timber;
 
 /**
@@ -35,6 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private static final String KEY_ACTIVITY_ID = "KEY_ACTIVITY_ID";
     private static final AtomicLong NEXT_ID = new AtomicLong(0);
+    public final static String CART_PRODUCTS = "CART_PRODUCTS";
     private static final LongSparseArray<ConfigPersistentComponent> componentsArray =
             new LongSparseArray<>();
 
@@ -46,6 +52,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLayout());
         ButterKnife.bind(this);
         Logger.addLogAdapter(new AndroidLogAdapter());
+        Paper.init(this);
 
         // Create the ActivityComponent and reuses cached ConfigPersistentComponent if this is
         // being called after a configuration change.
@@ -117,10 +124,43 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void gotoHome() {
         Intent homeIntent = new Intent(this, HomeActivity.class);
         startActivity(homeIntent);
+        finish();
+    }
+
+    protected void gotoCart(View view) {
+        CartActivity.startActivity(this);
+    }
+
+    protected void proceedOrder(View view) {
+        OrderActivity.startActivity(this);
     }
 
     public void close(View view) {
         finish();
+    }
+
+    public HashMap<String, Product> getCartProducts() {
+        return Paper.book().read(CART_PRODUCTS, new HashMap<>());
+    }
+
+    public void setCartProducts(HashMap<String, Product> products) {
+        Paper.book().write(CART_PRODUCTS, products);
+    }
+
+    public void updateCartProduct(Product product) {
+        HashMap<String, Product> products = getCartProducts();
+        String productId = product.getProductId();
+        if(product.getQuantity() <= 0) {
+            products.remove(productId);
+        } else {
+            products.put(productId, product);
+        }
+        setCartProducts(products);
+    }
+
+    public void clearCart(View view) {
+        Paper.book().write(CART_PRODUCTS,  new HashMap<>());
+        gotoHome();
     }
 
 }

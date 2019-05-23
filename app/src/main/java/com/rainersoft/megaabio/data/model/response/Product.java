@@ -31,6 +31,10 @@ public class Product {
     @Expose
     private String retailPrice;
 
+    @SerializedName("quantity")
+    @Expose
+    private int quantity = 0;
+
     public String getProductId() {
         return productId;
     }
@@ -95,4 +99,24 @@ public class Product {
         this.retailPrice = retailPrice;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void increamentQuanity() {
+        this.quantity++;
+    }
+
+    public void decreamentQuanity() {
+        if(this.quantity <= 0) {
+            this.quantity = 0;
+        } else {
+            this.quantity--;
+        }
+
+    }
 }

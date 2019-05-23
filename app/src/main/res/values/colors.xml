@@ -9,7 +9,7 @@
     <!--<color name="icons">@color/white</color>-->
     <color name="white">#FFFFFF</color>
     <color name="darkgray">#555555</color>
-    <color name="red">#DA1C0E</color>
+    <color name="red">#da1c0e</color>
 
     <!--<color name="divider">#B6B6B6</color>-->
 </resources>
