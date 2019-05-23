@@ -49,5 +49,7 @@
         android:padding="12dp"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
+    <include layout="@layout/menu_bottom" />
+
 
 </LinearLayout>

@@ -45,6 +45,8 @@
             android:paddingRight="6dp"
             app:layoutManager="android.support.v7.widget.GridLayoutManager"
             app:spanCount="2" />
+
+        <include layout="@layout/menu_bottom" />
     </LinearLayout>
 
 </RelativeLayout>
