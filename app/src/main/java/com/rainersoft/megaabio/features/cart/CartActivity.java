@@ -4,13 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rainersoft.megaabio.R;
+import com.rainersoft.megaabio.data.model.request.OrderDetail;
+import com.rainersoft.megaabio.data.model.request.OrderRequest;
+import com.rainersoft.megaabio.data.model.response.NewOrderResponse;
 import com.rainersoft.megaabio.data.model.response.Product;
+import com.rainersoft.megaabio.data.model.response.User;
 import com.rainersoft.megaabio.features.base.BaseActivity;
 import com.rainersoft.megaabio.features.common.ErrorView;
+import com.rainersoft.megaabio.features.order.OrderActivity;
 import com.rainersoft.megaabio.features.product.ProductsAdapter;
 import com.rainersoft.megaabio.injection.component.ActivityComponent;
 
@@ -28,7 +34,7 @@ import static com.rainersoft.megaabio.features.product.ProductsActivity.DECREMEN
 import static com.rainersoft.megaabio.features.product.ProductsActivity.INCREMENT;
 import static com.rainersoft.megaabio.features.product.ProductsActivity.REMOVE;
 
-public class CartActivity extends BaseActivity implements  CartMvpView, ErrorView.ErrorListener {
+public class CartActivity extends BaseActivity implements CartMvpView, ErrorView.ErrorListener {
 
     @Inject
     CartPresenter mainPresenter;
@@ -56,7 +62,7 @@ public class CartActivity extends BaseActivity implements  CartMvpView, ErrorVie
     private void showProducts() {
         HashMap<String, Product> cart = getCartProducts();
         List<Product> productDetails = new ArrayList<>();
-        for(String productId: cart.keySet()) {
+        for (String productId : cart.keySet()) {
             productDetails.add(cart.get(productId));
         }
         productsAdapter.setProductsList(productDetails);
@@ -126,11 +132,49 @@ public class CartActivity extends BaseActivity implements  CartMvpView, ErrorVie
 
     @Override
     public void showError(Throwable error) {
+        orderSuccess(null);
+    }
 
+    @Override
+    public void orderSuccess(NewOrderResponse newOrderResponse) {
+        clearCart(null);
+        Toast.makeText(this, "Order place successfull", Toast.LENGTH_SHORT).show();
+        gotoHome();
     }
 
     @Override
     public void onReloadData() {
 
+    }
+
+    protected void proceedOrder(View view) {
+        User user = getLoginUser();
+        if (user == null) {
+            gotoLogin();
+            finish();
+            return;
+        }
+
+        int amount = 0;
+        HashMap<String, Product> cart = getCartProducts();
+        List<OrderDetail> orderDetails = new ArrayList<>();
+        for (String productId : cart.keySet()) {
+            Product product = cart.get(productId);
+            OrderDetail orderDetail = new OrderDetail();
+            int productAmount = Integer.parseInt(product.getAmount());
+            int quantity = product.getQuantity();
+            orderDetail.setItemAmount(productAmount);
+            orderDetail.setProductId(Integer.parseInt(productId));
+            orderDetail.setQuantity(quantity);
+            orderDetails.add(orderDetail);
+            amount += ( productAmount * quantity );
+        }
+
+        OrderRequest orderRequest = new OrderRequest();
+        orderRequest.setCustId(user.getCustId());
+        orderRequest.setAmount(amount);
+        orderRequest.setOrderDetails( orderDetails );
+
+        mainPresenter.orderInsert(orderRequest);
     }
 }

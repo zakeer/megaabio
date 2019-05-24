@@ -2,8 +2,10 @@ package com.rainersoft.megaabio.features.cart;
 
 import com.rainersoft.megaabio.data.DataManager;
 import com.rainersoft.megaabio.data.model.request.AllResponseRequest;
+import com.rainersoft.megaabio.data.model.request.OrderRequest;
 import com.rainersoft.megaabio.features.base.BasePresenter;
 import com.rainersoft.megaabio.injection.ConfigPersistent;
+import com.rainersoft.megaabio.util.rx.scheduler.SchedulerUtils;
 
 import javax.inject.Inject;
 
@@ -22,23 +24,21 @@ public class CartPresenter extends BasePresenter<CartMvpView> {
         super.attachView(mvpView);
     }
 
-    public void getAllResponse(AllResponseRequest allResponseRequest) {
+    public void orderInsert(OrderRequest orderRequest) {
         checkViewAttached();
-//        getView().showProgress(true);
-//        dataManager
-//                .getAllResponse(allResponseRequest)
-//                .compose(SchedulerUtils.ioToMain())
-//                .subscribe(
-//                        allResponse -> {
-//                            getView().showProgress(false);
-//                            getView().allResponse(allResponse);
-//                            if(allResponse != null && allResponse.getProducts() != null) {
-//                                getView().products(allResponse.getProducts());
-//                            }
-//                        },
-//                        throwable -> {
-//                            getView().showProgress(false);
-//                            getView().showError(throwable);
-//                        });
+        getView().showProgress(true);
+        dataManager
+                .orderInsert(orderRequest)
+                .compose(SchedulerUtils.ioToMain())
+                .subscribe(
+                        newOrderResponse -> {
+                            getView().showProgress(false);
+                            getView().orderSuccess(newOrderResponse);
+
+                        },
+                        throwable -> {
+                            getView().showProgress(false);
+                            getView().showError(throwable);
+                        });
     }
 }

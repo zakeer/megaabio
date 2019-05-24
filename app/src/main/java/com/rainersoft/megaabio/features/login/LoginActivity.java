@@ -1,5 +1,7 @@
 package com.rainersoft.megaabio.features.login;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +17,7 @@ import com.rainersoft.megaabio.R;
 import com.rainersoft.megaabio.data.model.request.LoginRequest;
 import com.rainersoft.megaabio.data.model.response.LoginResponse;
 import com.rainersoft.megaabio.features.base.BaseActivity;
+import com.rainersoft.megaabio.features.cart.CartActivity;
 import com.rainersoft.megaabio.features.common.ErrorView;
 import com.rainersoft.megaabio.injection.component.ActivityComponent;
 
@@ -25,6 +28,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.paperdb.Paper;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
@@ -56,7 +60,10 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, ErrorVi
 //        mainPresenter.getPokemon(POKEMON_COUNT);
     }
 
-
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     public int getLayout() {
@@ -98,6 +105,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, ErrorVi
     public void loginSuccess(LoginResponse loginResponse) {
         if(loginResponse.getStatus().equals("true")) {
             showSuccess("Login Success");
+            Paper.book().write(LOGIN_USER, loginResponse.getUser());
             gotoHome();
         } else {
             showError("Invalid Login");

@@ -18,8 +18,10 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.rainersoft.megaabio.MvpStarterApplication;
 import com.rainersoft.megaabio.data.model.response.Product;
+import com.rainersoft.megaabio.data.model.response.User;
 import com.rainersoft.megaabio.features.cart.CartActivity;
 import com.rainersoft.megaabio.features.home.HomeActivity;
+import com.rainersoft.megaabio.features.login.LoginActivity;
 import com.rainersoft.megaabio.features.order.OrderActivity;
 import com.rainersoft.megaabio.injection.component.ActivityComponent;
 import com.rainersoft.megaabio.injection.component.ConfigPersistentComponent;
@@ -28,6 +30,8 @@ import com.rainersoft.megaabio.injection.module.ActivityModule;
 
 import io.paperdb.Paper;
 import timber.log.Timber;
+
+import static com.rainersoft.megaabio.features.login.LoginActivity.LOGIN_USER;
 
 /**
  * Abstract activity that every other Activity in this application must implement. It provides the
@@ -41,6 +45,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     private static final String KEY_ACTIVITY_ID = "KEY_ACTIVITY_ID";
     private static final AtomicLong NEXT_ID = new AtomicLong(0);
     public final static String CART_PRODUCTS = "CART_PRODUCTS";
+    public static final String LOGIN_USER = "LOGIN_USER";
+
     private static final LongSparseArray<ConfigPersistentComponent> componentsArray =
             new LongSparseArray<>();
 
@@ -127,12 +133,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         finish();
     }
 
-    protected void gotoCart(View view) {
-        CartActivity.startActivity(this);
+    protected void gotoLogin() {
+        Paper.book().delete(LOGIN_USER);
+        LoginActivity.startActivity(this);
+        finish();
     }
 
-    protected void proceedOrder(View view) {
-        OrderActivity.startActivity(this);
+    protected void gotoCart(View view) {
+        CartActivity.startActivity(this);
     }
 
     public void close(View view) {
@@ -161,6 +169,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void clearCart(View view) {
         Paper.book().write(CART_PRODUCTS,  new HashMap<>());
         gotoHome();
+    }
+
+    public User getLoginUser() {
+        return Paper.book().read(LOGIN_USER);
     }
 
 }

@@ -7,8 +7,10 @@ import javax.inject.Singleton;
 
 import com.rainersoft.megaabio.data.model.request.AllResponseRequest;
 import com.rainersoft.megaabio.data.model.request.LoginRequest;
+import com.rainersoft.megaabio.data.model.request.OrderRequest;
 import com.rainersoft.megaabio.data.model.response.AllResponse;
 import com.rainersoft.megaabio.data.model.response.LoginResponse;
+import com.rainersoft.megaabio.data.model.response.NewOrderResponse;
 import com.rainersoft.megaabio.data.model.response.ProductMetaDetailListResponse;
 import com.rainersoft.megaabio.data.remote.ApiService;
 import io.reactivex.Single;
@@ -46,6 +48,10 @@ public class DataManager {
 
     public Single<AllResponse> getAllResponse(AllResponseRequest allResponseRequest) {
         return apiService.getAllResponse(allResponseRequest);
+    }
+
+    public Single<NewOrderResponse> orderInsert(OrderRequest orderRequest) {
+        return apiService.orderInsert(orderRequest);
     }
 
 
