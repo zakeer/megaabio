@@ -11,5 +11,7 @@
     <color name="darkgray">#555555</color>
     <color name="red">#da1c0e</color>
 
+    <color name="transparent">#00FFFFFF</color>
+
     <!--<color name="divider">#B6B6B6</color>-->
 </resources>

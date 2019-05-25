@@ -1,7 +1,6 @@
 package com.rainersoft.megaabio.features.order;
 
-import android.content.Context;
-import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.rainersoft.megaabio.R;
@@ -12,43 +11,31 @@ import com.rainersoft.megaabio.injection.component.ActivityComponent;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
-public class OrderActivity extends BaseActivity implements OrderMvpView, ErrorView.ErrorListener {
-
-    @Inject
-    OrderPresenter mainPresenter;
+public class OrderDetails extends BaseActivity  implements OrderMvpView, ErrorView.ErrorListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mainPresenter.getAllCustomerOrderRecords(getLoginUser().getCustId());
     }
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_order;
-    }
-
-    public static void startActivity(Context context) {
-        Intent intent = new Intent(context, OrderActivity.class);
-        context.startActivity(intent);
+        return R.layout.activity_order_details;
     }
 
     @Override
     protected void inject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
+
     }
 
     @Override
     protected void attachView() {
-        mainPresenter.attachView(this);
+
     }
 
     @Override
     protected void detachPresenter() {
-        mainPresenter.detachView();
+
     }
 
     @Override

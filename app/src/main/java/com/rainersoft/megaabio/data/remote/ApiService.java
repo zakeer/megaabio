@@ -3,6 +3,7 @@ package com.rainersoft.megaabio.data.remote;
 import com.rainersoft.megaabio.data.model.request.AllResponseRequest;
 import com.rainersoft.megaabio.data.model.request.LoginRequest;
 import com.rainersoft.megaabio.data.model.request.OrderRequest;
+import com.rainersoft.megaabio.data.model.response.AllCustomerRecordsResponse;
 import com.rainersoft.megaabio.data.model.response.AllResponse;
 import com.rainersoft.megaabio.data.model.response.LoginResponse;
 import com.rainersoft.megaabio.data.model.response.NewOrderResponse;
@@ -41,8 +42,11 @@ public interface ApiService {
     @GET("orders/get_single_record?id={id}")
     Single<SingleRecordOrder> getSingleRecordOrder(@Path("id") String id);
 
+    @GET("orders/get_meta_company?id={id}")
+    Single<SingleRecordOrder> getMetaCompany(@Path("id") String id);
+
     @GET("orders/getAllCustomerRecords?customer_id={id}")
-    Single<Pokemon> getAllCustomerOrderRecords(@Path("id") String id);
+    Single<AllCustomerRecordsResponse> getAllCustomerOrderRecords(@Path("id") String id);
 
     /**
      * New Order Request

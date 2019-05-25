@@ -1,12 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.BottomNavigationView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:visibility="gone"
-    android:id="@+id/bottom_navigation"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    app:itemBackground="@color/primary"
-    app:itemIconTint="@color/white"
-    app:itemTextColor="@color/white"
-    app:menu="@menu/bottom_navigation_main" />
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".features.base.BaseActivity"
+    android:orientation="vertical">
+
+    <View
+        android:background="@color/primary"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:onClick="gotoHome"
+            style="@style/bottomMenuStyle"
+            android:drawableTop="@drawable/ic_home"
+            android:text="Home" />
+
+        <Button
+            android:onClick="gotoOrders"
+            style="@style/bottomMenuStyle"
+            android:drawableTop="@drawable/ic_orders"
+            android:text="Orders" />
+
+        <Button
+            android:onClick="gotoCart"
+            style="@style/bottomMenuStyle"
+            android:drawableTop="@drawable/ic_cart"
+            android:text="Cart" />
+
+        <Button
+            style="@style/bottomMenuStyle"
+            android:drawableTop="@drawable/ic_about"
+            android:text="About" />
+
+        <Button
+            style="@style/bottomMenuStyle"
+            android:drawableTop="@drawable/ic_home"
+            android:text="Contact" />
+
+    </LinearLayout>
+
+
+    <!--<android.support.design.widget.BottomNavigationView-->
+    <!--android:id="@+id/bottom_navigation"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:visibility="gone"-->
+    <!--app:itemBackground="@color/primary"-->
+    <!--app:itemIconTint="@color/white"-->
+    <!--app:itemTextColor="@color/white"-->
+    <!--app:menu="@menu/bottom_navigation_main" />-->
+</LinearLayout>

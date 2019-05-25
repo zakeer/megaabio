@@ -1,10 +1,7 @@
 package com.rainersoft.megaabio.features.order;
 
 import com.rainersoft.megaabio.data.DataManager;
-import com.rainersoft.megaabio.data.model.request.AllResponseRequest;
-import com.rainersoft.megaabio.data.model.request.OrderRequest;
 import com.rainersoft.megaabio.features.base.BasePresenter;
-import com.rainersoft.megaabio.features.cart.CartMvpView;
 import com.rainersoft.megaabio.injection.ConfigPersistent;
 import com.rainersoft.megaabio.util.rx.scheduler.SchedulerUtils;
 
@@ -23,6 +20,46 @@ public class OrderPresenter extends BasePresenter<OrderMvpView> {
     @Override
     public void attachView(OrderMvpView mvpView) {
         super.attachView(mvpView);
+    }
+
+    public void getAllCustomerOrderRecords(String customerId) {
+        checkViewAttached();
+        getView().showProgress(true);
+        dataManager
+                .getAllCustomerOrderRecords(customerId)
+                .compose(SchedulerUtils.ioToMain())
+                .subscribe(
+                        allCustomerRecordsResponse -> {
+                            getView().showProgress(false);
+
+                            if (allCustomerRecordsResponse != null && allCustomerRecordsResponse.getResponseData() != null) {
+                                getView().orders(allCustomerRecordsResponse.getResponseData());
+                            }
+                        },
+                        throwable -> {
+                            getView().showProgress(false);
+                            getView().showError(throwable);
+                        });
+    }
+
+    public void getSingleRecordOrder(String orderId) {
+        checkViewAttached();
+        getView().showProgress(true);
+        dataManager
+                .getSingleRecordOrder(orderId)
+                .compose(SchedulerUtils.ioToMain())
+                .subscribe(
+                        singleRecordOrder -> {
+                            getView().showProgress(false);
+
+                            if (singleRecordOrder != null && singleRecordOrder.getStatus().equals(true)) {
+                                getView().orderDetail(singleRecordOrder);
+                            }
+                        },
+                        throwable -> {
+                            getView().showProgress(false);
+                            getView().showError(throwable);
+                        });
     }
 
 
