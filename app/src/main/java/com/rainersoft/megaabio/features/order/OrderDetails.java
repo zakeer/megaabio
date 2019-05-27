@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.rainersoft.megaabio.R;
 import com.rainersoft.megaabio.data.model.response.ResponseData;
+import com.rainersoft.megaabio.data.model.response.SingleRecordOrder;
 import com.rainersoft.megaabio.features.base.BaseActivity;
 import com.rainersoft.megaabio.features.common.ErrorView;
 import com.rainersoft.megaabio.injection.component.ActivityComponent;
@@ -55,6 +56,11 @@ public class OrderDetails extends BaseActivity  implements OrderMvpView, ErrorVi
 
     @Override
     public void orders(List<ResponseData> responseData) {
+
+    }
+
+    @Override
+    public void orderDetail(SingleRecordOrder singleRecordOrder) {
 
     }
 }
