@@ -3,28 +3,44 @@ package com.rainersoft.megaabio.features.order;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.rainersoft.megaabio.R;
 import com.rainersoft.megaabio.data.model.response.ResponseData;
 import com.rainersoft.megaabio.data.model.response.SingleRecordOrder;
 import com.rainersoft.megaabio.features.base.BaseActivity;
 import com.rainersoft.megaabio.features.common.ErrorView;
+import com.rainersoft.megaabio.features.product.ProductsAdapter;
 import com.rainersoft.megaabio.injection.component.ActivityComponent;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+
 public class OrderActivity extends BaseActivity implements OrderMvpView, ErrorView.ErrorListener {
 
     @Inject
     OrderPresenter mainPresenter;
+
+    @Inject
+    OrdersAdapter ordersAdapter;
+
+    @BindView(R.id.rcvOrdersListView)
+    RecyclerView rcvOrdersListView;
+
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mainPresenter.getAllCustomerOrderRecords(getLoginUser().getCustId());
+        rcvOrdersListView.setAdapter(ordersAdapter);
+        ordersAdapter.setContext(this);
     }
 
     @Override
@@ -68,8 +84,8 @@ public class OrderActivity extends BaseActivity implements OrderMvpView, ErrorVi
     }
 
     @Override
-    public void orders(List<ResponseData> responseData) {
-
+    public void orders(List<ResponseData> orders) {
+        ordersAdapter.setOrders(orders);
     }
 
     @Override

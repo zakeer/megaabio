@@ -39,14 +39,14 @@ public interface ApiService {
     @POST("products/getAllResponse")
     Single<AllResponse> getAllResponse(@Body AllResponseRequest allResponseRequest);
 
-    @GET("orders/get_single_record?id={id}")
-    Single<SingleRecordOrder> getSingleRecordOrder(@Path("id") String id);
+    @GET("orders/get_single_record?")
+    Single<SingleRecordOrder> getSingleRecordOrder(@Query("id") String id);
 
-    @GET("orders/get_meta_company?id={id}")
-    Single<SingleRecordOrder> getMetaCompany(@Path("id") String id);
+    @GET("orders/get_meta_company?")
+    Single<SingleRecordOrder> getMetaCompany(@Query("id") String id);
 
-    @GET("orders/getAllCustomerRecords?customer_id={id}")
-    Single<AllCustomerRecordsResponse> getAllCustomerOrderRecords(@Path("id") String id);
+    @GET("orders/getAllCustomerRecords?")
+    Single<AllCustomerRecordsResponse> getAllCustomerOrderRecords(@Query("customer_id") String id);
 
     /**
      * New Order Request

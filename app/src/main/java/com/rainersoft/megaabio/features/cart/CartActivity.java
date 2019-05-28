@@ -48,6 +48,12 @@ public class CartActivity extends BaseActivity implements CartMvpView, ErrorView
     @BindView(R.id.tvTitle)
     TextView tvTitle;
 
+    @BindView(R.id.tvSubtotal)
+    TextView tvSubtotal;
+
+    @BindView(R.id.tvTotal)
+    TextView tvTotal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +72,7 @@ public class CartActivity extends BaseActivity implements CartMvpView, ErrorView
             productDetails.add(cart.get(productId));
         }
         productsAdapter.setProductsList(productDetails);
+        calculateAndUpdateTotalValues();
     }
 
     private void productClickUpdate() {
@@ -87,6 +94,7 @@ public class CartActivity extends BaseActivity implements CartMvpView, ErrorView
 
                                     updateCartProduct(product);
                                     productsAdapter.notifyDataSetChanged();
+                                    calculateAndUpdateTotalValues();
                                 },
                                 throwable -> {
                                     Timber.e(throwable, "Product click failed");
@@ -139,7 +147,7 @@ public class CartActivity extends BaseActivity implements CartMvpView, ErrorView
     public void orderSuccess(NewOrderResponse newOrderResponse) {
         clearCart(null);
         Toast.makeText(this, "Order place successfull", Toast.LENGTH_SHORT).show();
-        gotoHome();
+        gotoOrders(null);
     }
 
     @Override
@@ -155,7 +163,15 @@ public class CartActivity extends BaseActivity implements CartMvpView, ErrorView
             return;
         }
 
-        int amount = 0;
+        OrderRequest orderRequest = new OrderRequest();
+        orderRequest.setCustId(user.getCustId());
+        orderRequest.setAmount(getOrderDetailsSubtotal());
+        orderRequest.setOrderDetails(getOrderDetails());
+
+        mainPresenter.orderInsert(orderRequest);
+    }
+
+    public List<OrderDetail> getOrderDetails() {
         HashMap<String, Product> cart = getCartProducts();
         List<OrderDetail> orderDetails = new ArrayList<>();
         for (String productId : cart.keySet()) {
@@ -167,14 +183,28 @@ public class CartActivity extends BaseActivity implements CartMvpView, ErrorView
             orderDetail.setProductId(Integer.parseInt(productId));
             orderDetail.setQuantity(quantity);
             orderDetails.add(orderDetail);
-            amount += ( productAmount * quantity );
+            //amount += ( productAmount * quantity );
         }
 
-        OrderRequest orderRequest = new OrderRequest();
-        orderRequest.setCustId(user.getCustId());
-        orderRequest.setAmount(amount);
-        orderRequest.setOrderDetails( orderDetails );
+        return orderDetails;
+    }
 
-        mainPresenter.orderInsert(orderRequest);
+    public int getOrderDetailsSubtotal() {
+        int amount = 0;
+        List<OrderDetail> orderDetails = getOrderDetails();
+        for (OrderDetail orderDetail : orderDetails) {
+            amount += (orderDetail.getItemAmount() * orderDetail.getQuantity());
+        }
+        return amount;
+    }
+
+    public void calculateAndUpdateTotalValues() {
+        int cartSubtotal = getOrderDetailsSubtotal();
+        int tax = 5;
+        int total = ((cartSubtotal * tax) / 100) + cartSubtotal;
+
+        tvSubtotal.setText( String.format("%s /-", cartSubtotal) );
+        tvTotal.setText( String.format("%s /-", total) );
+
     }
 }
