@@ -2,6 +2,7 @@ package com.rainersoft.megaabio.features.home;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rainersoft.megaabio.R;
@@ -30,6 +31,9 @@ public class HomeActivity extends BaseActivity implements HomeMvpView, ErrorView
     @BindView(R.id.rcvMetaProductListView)
     RecyclerView rcvMetaProductListView;
 
+    @BindView(R.id.title)
+    TextView title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,8 @@ public class HomeActivity extends BaseActivity implements HomeMvpView, ErrorView
         productsAdapter.setContext(this);
         productClicked();
         mainPresenter.getMetaDetails();
+
+        title.setText(String.format("Welcome %s", getLoginUser().getCustName()));
     }
 
     private void productClicked() {

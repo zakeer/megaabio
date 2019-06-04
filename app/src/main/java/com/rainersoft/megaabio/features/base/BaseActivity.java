@@ -141,6 +141,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         finish();
     }
 
+    public void gotoLogin(View view) {
+        gotoLogin();
+    }
+
     public void gotoCart(View view) {
         CartActivity.startActivity(this);
     }

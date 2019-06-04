@@ -17,6 +17,7 @@
             android:layout_height="50dp">
 
             <TextView
+                android:id="@+id/title"
                 android:textColor="@color/primary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -30,6 +31,16 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_cart"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="56dp" />
+
+            <ImageView
+                android:onClick="gotoLogin"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/logout_01"
+                android:tint="@color/cardview_dark_background"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:layout_marginRight="12dp" />
