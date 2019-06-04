@@ -141,19 +141,19 @@ public abstract class BaseActivity extends AppCompatActivity {
         finish();
     }
 
-    protected void gotoCart(View view) {
+    public void gotoCart(View view) {
         CartActivity.startActivity(this);
     }
 
-    protected void gotoOrders(View view) {
+    public void gotoOrders(View view) {
         OrderActivity.startActivity(this);
     }
 
-    protected void gotoAbout(View view) {
+    public void gotoAbout(View view) {
         AboutActivity.startActivity(this);
     }
 
-    protected void gotoContact(View view) {
+    public void gotoContact(View view) {
         ContactActivity.startActivity(this);
     }
 

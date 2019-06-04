@@ -30,6 +30,8 @@ android {
 
         buildConfigField("String", "IMAGE_BASE_URL",
                 "\"${ImageBaseUrl}\"")
+
+        multiDexEnabled true
     }
     buildTypes {
         release {

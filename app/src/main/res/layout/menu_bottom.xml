@@ -35,11 +35,13 @@
             android:text="Cart" />
 
         <Button
+            android:onClick="gotoAbout"
             style="@style/bottomMenuStyle"
             android:drawableTop="@drawable/ic_about"
             android:text="About" />
 
         <Button
+            android:onClick="gotoContact"
             style="@style/bottomMenuStyle"
             android:drawableTop="@drawable/ic_home"
             android:text="Contact" />
