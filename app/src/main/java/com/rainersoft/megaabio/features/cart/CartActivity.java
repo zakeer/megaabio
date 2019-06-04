@@ -155,7 +155,7 @@ public class CartActivity extends BaseActivity implements CartMvpView, ErrorView
 
     }
 
-    protected void proceedOrder(View view) {
+    public void proceedOrder(View view) {
         User user = getLoginUser();
         if (user == null) {
             gotoLogin();
