@@ -65,7 +65,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="3dp"
-                        android:text="Mrs. M. Krishna Murthy"
+                        android:text="Mr. M. Krishna Murthy"
                         android:textColor="@color/primary"
                         android:textSize="15dp" />
 
