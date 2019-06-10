@@ -8,6 +8,7 @@ import com.rainersoft.megaabio.features.home.HomeActivity;
 import com.rainersoft.megaabio.features.login.LoginActivity;
 import com.rainersoft.megaabio.features.main.MainActivity;
 import com.rainersoft.megaabio.features.order.OrderActivity;
+import com.rainersoft.megaabio.features.order.OrderDetails;
 import com.rainersoft.megaabio.features.product.ProductsActivity;
 import com.rainersoft.megaabio.injection.PerActivity;
 import com.rainersoft.megaabio.injection.module.ActivityModule;
@@ -23,4 +24,5 @@ public interface ActivityComponent {
     void inject(ProductsActivity productsActivity);
     void inject(CartActivity cartActivity);
     void inject(OrderActivity orderActivity);
+    void inject(OrderDetails orderDetails);
 }

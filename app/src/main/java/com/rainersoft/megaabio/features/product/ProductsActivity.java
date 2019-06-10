@@ -3,6 +3,8 @@ package com.rainersoft.megaabio.features.product;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,12 +12,13 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.rainersoft.megaabio.R;
 import com.rainersoft.megaabio.data.model.request.AllResponseRequest;
+import com.rainersoft.megaabio.data.model.request.GetCompaniesRequest;
 import com.rainersoft.megaabio.data.model.response.AllResponse;
 import com.rainersoft.megaabio.data.model.response.MetaResponseProduct;
 import com.rainersoft.megaabio.data.model.response.Product;
+import com.rainersoft.megaabio.data.model.response.company.ResponseDatum;
 import com.rainersoft.megaabio.features.base.BaseActivity;
 import com.rainersoft.megaabio.features.common.ErrorView;
-import com.rainersoft.megaabio.features.home.HomeActivity;
 import com.rainersoft.megaabio.injection.component.ActivityComponent;
 
 import java.util.ArrayList;
@@ -25,11 +28,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import io.paperdb.Paper;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
-public class ProductsActivity extends BaseActivity implements ProductDetailsMvpView, ErrorView.ErrorListener {
+public class ProductsActivity extends BaseActivity implements ProductDetailsMvpView, ErrorView.ErrorListener, TabLayout.OnTabSelectedListener {
 
     public final static String PRODUCT_KEY = "PRODUCT_KEY";
     public final static String INCREMENT = "INCREMENT";
@@ -44,11 +46,21 @@ public class ProductsActivity extends BaseActivity implements ProductDetailsMvpV
     @Inject
     ProductsAdapter productsAdapter;
 
+    ProductsTabAdapter adapter;
+    List<ResponseDatum> companies = new ArrayList<>();
+    int currentTabPosition = 0;
+
     @BindView(R.id.rcvProductListView)
     RecyclerView rcvProductListView;
 
     @BindView(R.id.tvTitle)
     TextView tvTitle;
+
+    @BindView(R.id.tablayout)
+    TabLayout tabLayout;
+
+    @BindView(R.id.pager)
+    ViewPager pager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +82,10 @@ public class ProductsActivity extends BaseActivity implements ProductDetailsMvpV
         rcvProductListView.setAdapter(productsAdapter);
         productsAdapter.setContext(this);
 
-        AllResponseRequest allResponseRequest = new AllResponseRequest();
-        allResponseRequest.setCompanyId(metaResponseProduct.getComapnyId());
-        allResponseRequest.setProductMetaId(metaResponseProduct.getProductMetaId());
-        mainPresenter.getAllResponse(allResponseRequest);
+
+        GetCompaniesRequest getCompaniesRequest = new GetCompaniesRequest();
+        getCompaniesRequest.setProductMetaId(metaResponseProduct.getProductMetaId());
+        mainPresenter.getCompanies(getCompaniesRequest);
 
         tvTitle.setText(metaResponseProduct.getProductName());
         productClickUpdate();
@@ -167,6 +179,61 @@ public class ProductsActivity extends BaseActivity implements ProductDetailsMvpV
                 product.setQuantity(cart.get(productId).getQuantity());
             }
         }
-        productsAdapter.setProductsList(productDetails);
+        adapter.getItem(this.currentTabPosition).products(productDetails, this::updateCartProduct);
+    }
+
+    @Override
+    public void getCompanies(List<ResponseDatum> companies) {
+        this.companies = companies;
+        adapter = new ProductsTabAdapter(getSupportFragmentManager());
+        for (ResponseDatum company : companies) {
+            adapter.addFragment(new ProductsListFragment(), company.getCompanyName());
+        }
+        pager.setAdapter(adapter);
+        tabLayout.addOnTabSelectedListener(ProductsActivity.this);
+        tabLayout.setupWithViewPager(pager);
+        fetchCompanyProducts();
+    }
+
+    public void getProducts(ResponseDatum company) {
+        AllResponseRequest allResponseRequest = new AllResponseRequest();
+        allResponseRequest.setCompanyId(company.getCompanyId());
+        allResponseRequest.setProductMetaId(company.getProductMetaId());
+        mainPresenter.getAllResponse(allResponseRequest);
+    }
+
+    public void fetchCompanyProducts() {
+        if (this.companies == null || this.companies.size() <= 0) {
+            return;
+        }
+
+        ResponseDatum company = this.companies.get(this.currentTabPosition);
+        List<Product> products = this.adapter.getProducts(this.currentTabPosition);
+        if(products == null || products.size() <= 0) {
+            getProducts(company);
+            return;
+        }
+        this.products(products);
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        Timber.i("::: Products Activity :::: -> onTabSelected = %s | %d", tab.getText(), tab.getPosition());
+        this.currentTabPosition = tab.getPosition();
+        fetchCompanyProducts();
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+        Timber.i("::: Products Activity :::: -> onTabUnselected = %s | %d", tab.getText(), tab.getPosition());
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+        Timber.i("::: Products Activity :::: -> onTabReselected = %s | %d", tab.getText(), tab.getPosition());
+    }
+
+    public interface IProductClick {
+        void click(Product product);
     }
 }

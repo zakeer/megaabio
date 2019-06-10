@@ -2,8 +2,8 @@ package com.rainersoft.megaabio.features.product;
 
 import com.rainersoft.megaabio.data.DataManager;
 import com.rainersoft.megaabio.data.model.request.AllResponseRequest;
+import com.rainersoft.megaabio.data.model.request.GetCompaniesRequest;
 import com.rainersoft.megaabio.features.base.BasePresenter;
-import com.rainersoft.megaabio.features.home.HomeMvpView;
 import com.rainersoft.megaabio.injection.ConfigPersistent;
 import com.rainersoft.megaabio.util.rx.scheduler.SchedulerUtils;
 
@@ -34,8 +34,27 @@ public class ProductDetailsPresenter extends BasePresenter<ProductDetailsMvpView
                         allResponse -> {
                             getView().showProgress(false);
                             getView().allResponse(allResponse);
-                            if(allResponse != null && allResponse.getProducts() != null) {
+                            if (allResponse != null && allResponse.getProducts() != null) {
                                 getView().products(allResponse.getProducts());
+                            }
+                        },
+                        throwable -> {
+                            getView().showProgress(false);
+                            getView().showError(throwable);
+                        });
+    }
+
+    public void getCompanies(GetCompaniesRequest getCompaniesRequest) {
+        checkViewAttached();
+        getView().showProgress(true);
+        dataManager
+                .getCompanies(getCompaniesRequest)
+                .compose(SchedulerUtils.ioToMain())
+                .subscribe(
+                        allResponse -> {
+                            getView().showProgress(false);
+                            if (allResponse != null && allResponse.getResponseData() != null) {
+                                getView().getCompanies(allResponse.getResponseData());
                             }
                         },
                         throwable -> {

@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                android:text="@string/about_app"
+                android:text=""
                 android:textColor="@color/accent"
                 android:textSize="16sp" />
 
@@ -153,6 +153,7 @@
                 android:padding="10dp">
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/deleteView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -51,10 +51,7 @@ public class OrderPresenter extends BasePresenter<OrderMvpView> {
                 .subscribe(
                         singleRecordOrder -> {
                             getView().showProgress(false);
-
-                            if (singleRecordOrder != null && singleRecordOrder.getStatus().equals(true)) {
-                                getView().orderDetail(singleRecordOrder);
-                            }
+                            getView().orderDetail(singleRecordOrder);
                         },
                         throwable -> {
                             getView().showProgress(false);

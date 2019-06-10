@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import com.rainersoft.megaabio.data.model.request.AllResponseRequest;
+import com.rainersoft.megaabio.data.model.request.GetCompaniesRequest;
 import com.rainersoft.megaabio.data.model.request.LoginRequest;
 import com.rainersoft.megaabio.data.model.request.OrderRequest;
 import com.rainersoft.megaabio.data.model.response.AllCustomerRecordsResponse;
@@ -14,6 +15,7 @@ import com.rainersoft.megaabio.data.model.response.LoginResponse;
 import com.rainersoft.megaabio.data.model.response.NewOrderResponse;
 import com.rainersoft.megaabio.data.model.response.ProductMetaDetailListResponse;
 import com.rainersoft.megaabio.data.model.response.SingleRecordOrder;
+import com.rainersoft.megaabio.data.model.response.company.GetCompaniesResponse;
 import com.rainersoft.megaabio.data.remote.ApiService;
 import io.reactivex.Single;
 
@@ -50,6 +52,10 @@ public class DataManager {
 
     public Single<AllResponse> getAllResponse(AllResponseRequest allResponseRequest) {
         return apiService.getAllResponse(allResponseRequest);
+    }
+
+    public Single<GetCompaniesResponse> getCompanies(GetCompaniesRequest getCompaniesRequest) {
+        return apiService.getCompanies(getCompaniesRequest);
     }
 
     public Single<NewOrderResponse> orderInsert(OrderRequest orderRequest) {

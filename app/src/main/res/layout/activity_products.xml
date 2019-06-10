@@ -42,7 +42,31 @@
 
     </RelativeLayout>
 
+    <android.support.design.widget.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tablayout"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:tabMode="scrollable"
+        android:background="?attr/colorPrimary"
+        android:elevation="6dp"
+        app:tabTextColor="#DDDDDD"
+        app:tabSelectedTextColor="#ffffff"
+        app:tabIndicatorColor="#005005"
+        android:minHeight="?attr/actionBarSize">
+
+    </android.support.design.widget.TabLayout>
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/pager">
+
+    </android.support.v4.view.ViewPager>
+
     <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/rcvProductListView"
         android:layout_width="match_parent"
         android:layout_height="0dp"

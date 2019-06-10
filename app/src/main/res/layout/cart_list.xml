@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="8dp"
-                    android:text="@string/about_app"
+                    android:text=""
                     android:textColor="@color/accent"
                     android:textSize="13dp" />
 

@@ -7,9 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.rainersoft.megaabio.BuildConfig;
 import com.rainersoft.megaabio.R;
+import com.rainersoft.megaabio.data.model.response.MetaResponseProduct;
 import com.rainersoft.megaabio.data.model.response.Product;
 import com.rainersoft.megaabio.data.model.response.ResponseData;
 
@@ -20,13 +19,9 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
-
-import static com.rainersoft.megaabio.features.product.ProductsActivity.DECREMENT;
-import static com.rainersoft.megaabio.features.product.ProductsActivity.INCREMENT;
 
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewHolder> {
 
@@ -47,6 +42,10 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
 
     public void setContext(Context context) {
         this.context = context;
+    }
+
+    Observable<ResponseData> getOrderClick() {
+        return orderClickSubject;
     }
 
     @Override

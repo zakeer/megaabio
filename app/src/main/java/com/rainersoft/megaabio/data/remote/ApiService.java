@@ -1,6 +1,7 @@
 package com.rainersoft.megaabio.data.remote;
 
 import com.rainersoft.megaabio.data.model.request.AllResponseRequest;
+import com.rainersoft.megaabio.data.model.request.GetCompaniesRequest;
 import com.rainersoft.megaabio.data.model.request.LoginRequest;
 import com.rainersoft.megaabio.data.model.request.OrderRequest;
 import com.rainersoft.megaabio.data.model.response.AllCustomerRecordsResponse;
@@ -11,6 +12,7 @@ import com.rainersoft.megaabio.data.model.response.Pokemon;
 import com.rainersoft.megaabio.data.model.response.PokemonListResponse;
 import com.rainersoft.megaabio.data.model.response.ProductMetaDetailListResponse;
 import com.rainersoft.megaabio.data.model.response.SingleRecordOrder;
+import com.rainersoft.megaabio.data.model.response.company.GetCompaniesResponse;
 
 import io.reactivex.Single;
 import retrofit2.http.Body;
@@ -39,13 +41,16 @@ public interface ApiService {
     @POST("products/getAllResponse")
     Single<AllResponse> getAllResponse(@Body AllResponseRequest allResponseRequest);
 
+    @POST("companies/getCompanies")
+    Single<GetCompaniesResponse> getCompanies(@Body GetCompaniesRequest getCompaniesRequest);
+
     @GET("orders/get_single_record?")
     Single<SingleRecordOrder> getSingleRecordOrder(@Query("id") String id);
 
     @GET("orders/get_meta_company?")
     Single<SingleRecordOrder> getMetaCompany(@Query("id") String id);
 
-    @GET("orders/getAllCustomerRecords?")
+    @GET("orders/get_order_list?")
     Single<AllCustomerRecordsResponse> getAllCustomerOrderRecords(@Query("customer_id") String id);
 
     /**
