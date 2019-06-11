@@ -120,7 +120,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MetaPr
             tvProductType.setText(String.format("%s", product.getTypeName()));
             tvProductCase.setText(String.format("%s", product.getProdCase()));
             tvProductCompany.setText(String.format("%s", product.getCompanyName()));
-            tvProductAmount.setText(String.format("Rs. %s /-", product.getAmount()));
+            tvProductAmount.setText(String.format("%s /-", product.getAmount()));
             cartCount.setText(String.format("%s /-", product.getQuantity()));
 
             layoutCartAction.setVisibility(product.getQuantity() <= 0 ? View.GONE : View.VISIBLE);

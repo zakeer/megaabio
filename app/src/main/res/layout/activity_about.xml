@@ -82,7 +82,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="(CEO of Meghana Bio Seeds)"
+                        android:text="(CEO of Meghana Group Of Companies)"
                         android:textColor="#B7000000"
                         android:textSize="8dp" />
 
@@ -147,7 +147,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="(CEO of Meghana Bio Seeds)"
+                        android:text="(Seed processing &amp; Bioproducts)"
                         android:textColor="#B7000000"
                         android:textSize="8dp" />
 
@@ -187,7 +187,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="(CEO of Meghana Bio Seeds)"
+                        android:text="(Neem &amp; karanj oil extraction unit)"
                         android:textColor="#B7000000"
                         android:textSize="8dp" />
 
