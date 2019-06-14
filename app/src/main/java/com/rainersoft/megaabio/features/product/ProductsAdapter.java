@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.rainersoft.megaabio.BuildConfig;
 import com.rainersoft.megaabio.R;
 import com.rainersoft.megaabio.data.model.response.Product;
+import com.rainersoft.megaabio.data.model.response.ProductDetail;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,6 +34,7 @@ import static com.rainersoft.megaabio.features.product.ProductsActivity.INCREMEN
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MetaProductViewHolder> {
 
     private List<Product> productsList;
+    private List<ProductDetail> productDetailList;
     private Subject<ProductClickUpdate> productClickSubject;
     private Context context;
 
@@ -40,11 +42,16 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MetaPr
     ProductsAdapter() {
         productClickSubject = PublishSubject.create();
         productsList = Collections.emptyList();
+        productDetailList = Collections.emptyList();
     }
 
     public void setProductsList(List<Product> productsList) {
         this.productsList = productsList;
         notifyDataSetChanged();
+    }
+
+    public void setProductDetailList(List<ProductDetail> productDetailList) {
+        this.productDetailList = productDetailList;
     }
 
     public void setContext(Context context) {

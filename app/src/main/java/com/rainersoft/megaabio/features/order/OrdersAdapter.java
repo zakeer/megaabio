@@ -98,7 +98,9 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
             orderId.setText(String.format("# %s", order.getOrderId()));
             tvDate.setText(String.format("%s", order.getOrderDate()));
             tvStatus.setText(String.format("%s", order.getOrderStatus()));
-            tvAmount.setText(String.format("Rs. %s /-", order.getAmount()));
+            float totalAmount = Float.parseFloat(order.getAmount());
+            float tax = (totalAmount / 100) * 5;
+            tvAmount.setText(String.format("Rs. %s /-", (totalAmount + tax)));
         }
     }
 

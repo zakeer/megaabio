@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.rainersoft.megaabio.R;
 import com.rainersoft.megaabio.data.model.response.AllResponse;
 import com.rainersoft.megaabio.data.model.response.Product;
+import com.rainersoft.megaabio.data.model.response.ProductDetail;
 import com.rainersoft.megaabio.data.model.response.company.ResponseDatum;
 import com.rainersoft.megaabio.features.base.BaseActivity;
 import com.rainersoft.megaabio.features.base.BaseFragment;
@@ -65,10 +66,11 @@ public class ProductsListFragment extends BaseFragment implements  ErrorView.Err
     }
 
 
-    public void products(List<Product> productDetails, ProductsActivity.IProductClick iProductClick) {
+    public void products(List<Product> productDetails, List<ProductDetail> productDetailList, ProductsActivity.IProductClick iProductClick) {
         ProductsAdapter adapter = new ProductsAdapter();
         adapter.setContext( getActivity() );
         adapter.setProductsList(productDetails);
+        adapter.setProductDetailList(productDetailList);
         rcvProductListView.setAdapter(adapter);
 
         adapter.getProductUpdate()

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import com.rainersoft.megaabio.data.model.request.GetCompaniesRequest;
 import com.rainersoft.megaabio.data.model.response.AllResponse;
 import com.rainersoft.megaabio.data.model.response.MetaResponseProduct;
 import com.rainersoft.megaabio.data.model.response.Product;
+import com.rainersoft.megaabio.data.model.response.ProductDetail;
 import com.rainersoft.megaabio.data.model.response.company.ResponseDatum;
 import com.rainersoft.megaabio.features.base.BaseActivity;
 import com.rainersoft.megaabio.features.common.ErrorView;
@@ -61,6 +63,12 @@ public class ProductsActivity extends BaseActivity implements ProductDetailsMvpV
 
     @BindView(R.id.pager)
     ViewPager pager;
+
+    @BindView(R.id.tvDetails)
+    TextView tvDetails;
+
+    @BindView(R.id.tvBenefits)
+    TextView tvBenefits;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,7 +179,7 @@ public class ProductsActivity extends BaseActivity implements ProductDetailsMvpV
     }
 
     @Override
-    public void products(List<Product> productDetails) {
+    public void products(List<Product> productDetails, List<ProductDetail> productDetailList) {
         HashMap<String, Product> cart = getCartProducts();
         for (Product product : productDetails) {
             String productId = product.getProductId();
@@ -179,7 +187,20 @@ public class ProductsActivity extends BaseActivity implements ProductDetailsMvpV
                 product.setQuantity(cart.get(productId).getQuantity());
             }
         }
-        adapter.getItem(this.currentTabPosition).products(productDetails, this::updateCartProduct);
+        adapter.getItem(this.currentTabPosition).products(productDetails, productDetailList, this::updateCartProduct);
+
+        if(productDetailList.size() > 0) {
+            tvBenefits.setText(
+                    String.format("Benefits: \n%s", productDetailList.get(0).getBenifits())
+            );
+
+            tvDetails.setText(
+                    String.format("Details: \n%s", productDetailList.get(0).getDetails())
+            );
+
+            tvBenefits.setVisibility(View.VISIBLE);
+            tvDetails.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -209,11 +230,12 @@ public class ProductsActivity extends BaseActivity implements ProductDetailsMvpV
 
         ResponseDatum company = this.companies.get(this.currentTabPosition);
         List<Product> products = this.adapter.getProducts(this.currentTabPosition);
+        List<ProductDetail> productDetails = this.adapter.getProductDetailsList(this.currentTabPosition);
         if(products == null || products.size() <= 0) {
             getProducts(company);
             return;
         }
-        this.products(products);
+        this.products(products, productDetails);
     }
 
     @Override

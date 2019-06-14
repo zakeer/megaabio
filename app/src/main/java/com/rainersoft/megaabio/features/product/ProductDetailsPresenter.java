@@ -35,7 +35,7 @@ public class ProductDetailsPresenter extends BasePresenter<ProductDetailsMvpView
                             getView().showProgress(false);
                             getView().allResponse(allResponse);
                             if (allResponse != null && allResponse.getProducts() != null) {
-                                getView().products(allResponse.getProducts());
+                                getView().products(allResponse.getProducts(), allResponse.getProductDetails());
                             }
                         },
                         throwable -> {

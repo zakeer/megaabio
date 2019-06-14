@@ -16,7 +16,7 @@ public interface ProductDetailsMvpView extends MvpView {
 
     void allResponse(AllResponse allResponse);
 
-    void products(List<Product> productDetails);
+    void products(List<Product> productDetails, List<ProductDetail> productDetailList);
 
     void getCompanies(List<ResponseDatum> companies);
 }
