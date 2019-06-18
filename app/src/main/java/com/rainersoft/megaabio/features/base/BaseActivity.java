@@ -146,6 +146,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void gotoCart(View view) {
+        if(getCartProducts().size() <= 0) {
+
+            Toast.makeText(getApplicationContext(),"Cart is Empty", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
         CartActivity.startActivity(this);
     }
 

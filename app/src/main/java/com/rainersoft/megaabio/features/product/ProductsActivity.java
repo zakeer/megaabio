@@ -191,11 +191,11 @@ public class ProductsActivity extends BaseActivity implements ProductDetailsMvpV
 
         if(productDetailList.size() > 0) {
             tvBenefits.setText(
-                    String.format("Benefits: \n%s", productDetailList.get(0).getBenifits())
+                    String.format("%s", productDetailList.get(0).getBenifits())
             );
 
             tvDetails.setText(
-                    String.format("Details: \n%s", productDetailList.get(0).getDetails())
+                    String.format("%s", productDetailList.get(0).getDetails())
             );
 
             tvBenefits.setVisibility(View.VISIBLE);

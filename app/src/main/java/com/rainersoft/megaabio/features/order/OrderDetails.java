@@ -136,12 +136,13 @@ public class OrderDetails extends BaseActivity implements OrderMvpView, ErrorVie
         tvInvoiceNo.setText(String.format("Invoice # %s", singleRecordOrder.getOrderDetails().getOrderId()));
         tvDateOfInvoice.setText(singleRecordOrder.getOrderDetails().getOrderDate());
 
-        tvTotal.setText(String.format("Rs. %s /-", singleRecordOrder.getOrderDetails().getAmount()));
+
         float totalAmount = Float.parseFloat(singleRecordOrder.getOrderDetails().getAmount());
         float tax = (totalAmount / 100) * 5;
         float subTotal = totalAmount - tax;
-        tvSubtotal.setText("Rs." + subTotal + "/-");
+        tvSubtotal.setText("Rs." + totalAmount + "/-");
         tvTax.setText("Rs." + tax + "/-");
+        tvTotal.setText(String.format("Rs. %s /-", (totalAmount + tax)));
 
 
         singleOrderProductsAdapter.setOrders(singleRecordOrder.getOrderItemDetails());
