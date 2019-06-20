@@ -33,6 +33,24 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_marginBottom="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:background="@drawable/input_bg">
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            android:spinnerMode="dropdown"
+            android:textSize="13dp"
+            />
+    </LinearLayout>
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcvOrdersListView"
         android:layout_width="match_parent"
