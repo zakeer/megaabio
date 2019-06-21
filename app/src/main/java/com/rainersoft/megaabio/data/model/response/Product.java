@@ -24,6 +24,10 @@ public class Product {
     @SerializedName("Prod_case")
     @Expose
     private String prodCase;
+
+    @SerializedName("Price_per_unit")
+    @Expose
+    private String pricePerUnit;
     @SerializedName("amount")
     @Expose
     private String amount;
@@ -73,6 +77,14 @@ public class Product {
 
     public void setTypeName(String typeName) {
         this.typeName = typeName;
+    }
+
+    public String getPricePerUnit() {
+        return pricePerUnit;
+    }
+
+    public void setPricePerUnit(String pricePerUnit) {
+        this.pricePerUnit = pricePerUnit;
     }
 
     public String getProdCase() {
