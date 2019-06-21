@@ -34,20 +34,41 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_marginBottom="10sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="13dp"
-        android:layout_marginRight="13dp"
-        android:background="@drawable/input_bg">
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="80px"
-            android:theme="@style/ThemeOverlay.AppCompat.Light"
-            android:spinnerMode="dropdown"
-            android:textSize="13dp"
-            />
+        android:layout_marginBottom="10sp">
+
+        <Button
+            android:id="@+id/btnAll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@color/primary"
+            android:onClick="filterOrders"
+            android:text="All"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btnBooked"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@color/light_gray"
+            android:onClick="filterOrders"
+            android:text="Booked" />
+
+        <Button
+            android:id="@+id/btnDispatched"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@color/light_gray"
+            android:onClick="filterOrders"
+            android:text="Dispatched" />
+
     </LinearLayout>
 
 
@@ -60,17 +81,17 @@
         app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
     <LinearLayout
-        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/primary"
             android:text="Order Now"
-            android:textColor="@color/white"
-            android:background="@color/primary" />
+            android:textColor="@color/white" />
 
     </LinearLayout>
 </LinearLayout>

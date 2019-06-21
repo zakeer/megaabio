@@ -4,21 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rainersoft.megaabio.R;
-import com.rainersoft.megaabio.data.model.request.OrderDetail;
-import com.rainersoft.megaabio.data.model.response.Product;
 import com.rainersoft.megaabio.data.model.response.ResponseData;
 import com.rainersoft.megaabio.data.model.response.SingleRecordOrder;
 import com.rainersoft.megaabio.features.base.BaseActivity;
 import com.rainersoft.megaabio.features.common.ErrorView;
-import com.rainersoft.megaabio.features.home.HomeActivity;
-import com.rainersoft.megaabio.features.product.ProductsActivity;
-import com.rainersoft.megaabio.features.product.ProductsAdapter;
 import com.rainersoft.megaabio.injection.component.ActivityComponent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -40,6 +38,8 @@ public class OrderActivity extends BaseActivity implements OrderMvpView, ErrorVi
 
     @BindView(R.id.tvTitle)
     TextView tvTitle;
+
+    List<ResponseData> orders = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,11 +112,64 @@ public class OrderActivity extends BaseActivity implements OrderMvpView, ErrorVi
 
     @Override
     public void orders(List<ResponseData> orders) {
+        this.orders = orders;
         ordersAdapter.setOrders(orders);
     }
 
     @Override
     public void orderDetail(SingleRecordOrder singleRecordOrder) {
 
+    }
+
+    public void filterOrders(View view) {
+        int id = view.getId();
+        if (id == R.id.btnAll) {
+            renderOrders(orders);
+        } else if (id == R.id.btnBooked) {
+            List<ResponseData> bookedOrders = new ArrayList<>();
+            for (ResponseData order : orders) {
+                if (order.getOrderStatus() != null && order.getOrderStatus().toString().equals("Booked")) {
+                    bookedOrders.add(order);
+                }
+            }
+            renderOrders(bookedOrders);
+        } else {
+            List<ResponseData> dispatchedOrders = new ArrayList<>();
+            for (ResponseData order : orders) {
+                if (order.getOrderStatus() != null && order.getOrderStatus().toString().equals("Dispatched")) {
+                    dispatchedOrders.add(order);
+                }
+            }
+            renderOrders(dispatchedOrders);
+        }
+        updateFilterButton(id);
+    }
+
+    public void renderOrders(List<ResponseData> orders) {
+        ordersAdapter.setOrders(orders);
+    }
+
+    void updateFilterButton(int type) {
+
+        Button btnAll = findViewById(R.id.btnAll);
+        Button btnBooked = findViewById(R.id.btnBooked);
+        Button btnDispatched = findViewById(R.id.btnDispatched);
+
+        clearBtnStyle(btnAll);
+        clearBtnStyle(btnBooked);
+        clearBtnStyle(btnDispatched);
+
+        selectBtnStyle(findViewById(type));
+
+    }
+
+    void clearBtnStyle(Button btn) {
+        btn.setBackgroundColor(getResources().getColor(R.color.light_gray));
+        btn.setTextColor(getResources().getColor(R.color.darkgray));
+    }
+
+    void selectBtnStyle(Button btn) {
+        btn.setBackgroundColor(getResources().getColor(R.color.primary));
+        btn.setTextColor(getResources().getColor(R.color.white));
     }
 }
