@@ -31,6 +31,7 @@ public class Product {
     @SerializedName("amount")
     @Expose
     private String amount;
+
     @SerializedName("retail_price")
     @Expose
     private String retailPrice;
