@@ -7,18 +7,28 @@
     android:orientation="vertical"
     tools:context=".features.order.OrderDetails">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
 
+
         <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="false"
+            android:onClick="close"
+            android:src="@drawable/ic_back" />
+
+        <ImageView
+            android:id="@+id/megana_logo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/meghaana_logo" />
 
         <TextView
+            android:layout_below="@+id/megana_logo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -26,7 +36,7 @@
             android:text="S.No- 37, Thatikal village, Nakrekal, Nalgonda dist. T.S state. \nmkm.meghana@gmail.com"
             android:textSize="9dp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"

@@ -129,9 +129,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         Intent homeIntent = new Intent(this, HomeActivity.class);
         startActivity(homeIntent);
         finish();
+
     }
 
     public void gotoHome(View view) {
+        if(this instanceof HomeActivity){
+            return;
+        }
+
         gotoHome();
     }
 
