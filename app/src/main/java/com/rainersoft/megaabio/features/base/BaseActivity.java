@@ -126,6 +126,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void gotoHome() {
+        if(this instanceof HomeActivity){
+            return;
+        }
         Intent homeIntent = new Intent(this, HomeActivity.class);
         startActivity(homeIntent);
         finish();
@@ -133,10 +136,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void gotoHome(View view) {
-        if(this instanceof HomeActivity){
-            return;
-        }
-
         gotoHome();
     }
 
@@ -151,24 +150,36 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void gotoCart(View view) {
+        if(this instanceof CartActivity){
+            return;
+        }
         if(getCartProducts().size() <= 0) {
-
             Toast.makeText(getApplicationContext(),"Cart is Empty", Toast.LENGTH_SHORT).show();
-
             return;
         }
         CartActivity.startActivity(this);
     }
 
     public void gotoOrders(View view) {
+
+        if(this instanceof OrderActivity){
+            return;
+        }
         OrderActivity.startActivity(this);
     }
 
     public void gotoAbout(View view) {
+
+        if(this instanceof AboutActivity){
+            return;
+        }
         AboutActivity.startActivity(this);
     }
 
     public void gotoContact(View view) {
+        if(this instanceof ContactActivity){
+            return;
+        }
         ContactActivity.startActivity(this);
     }
 
