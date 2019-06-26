@@ -55,6 +55,7 @@
             android:padding="4dp"
             android:textColor="@color/primary"
             android:onClick="gotoContact"
+            android:textSize="9sp"
             android:text="Contact" />
 
     </LinearLayout>
