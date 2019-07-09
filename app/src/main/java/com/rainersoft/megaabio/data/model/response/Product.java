@@ -25,9 +25,11 @@ public class Product {
     @Expose
     private String prodCase;
 
-    @SerializedName("Price_per_unit")
+    @SerializedName("price_per_unit")
     @Expose
     private String pricePerUnit;
+
+
     @SerializedName("amount")
     @Expose
     private String amount;

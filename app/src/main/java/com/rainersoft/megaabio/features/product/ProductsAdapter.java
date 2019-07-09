@@ -104,6 +104,9 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MetaPr
         @BindView(R.id.tvProductAmount)
         TextView tvProductAmount;
 
+        @BindView(R.id.tvRetailPrice)
+        TextView tvRetailPrice;
+
         @BindView(R.id.cartCount)
         TextView cartCount;
 
@@ -129,7 +132,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MetaPr
 
             tvProductType.setText(String.format("%s", product.getTypeName()));
             tvProductCase.setText(String.format("%s", product.getProdCase()));
-            tvProductCaseValue.setText(String.format("%s", product.getRetailPrice()));
+            tvProductCaseValue.setText(String.format("%s", product.getPricePerUnit()));
+            tvRetailPrice.setText(String.format("%s", product.getRetailPrice()));
             tvProductCompany.setText(String.format("%s", product.getCompanyName()));
             tvProductAmount.setText(String.format("%s /-", product.getAmount()));
             cartCount.setText(String.format("%s /-", product.getQuantity()));

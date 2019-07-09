@@ -69,6 +69,9 @@ public class ProductsListFragment extends BaseFragment implements  ErrorView.Err
     public void products(List<Product> productDetails, List<ProductDetail> productDetailList, ProductsActivity.IProductClick iProductClick) {
         ProductsAdapter adapter = new ProductsAdapter();
         adapter.setContext( getActivity() );
+        if(adapter == null) {
+            return;
+        }
         adapter.setProductsList(productDetails);
         adapter.setProductDetailList(productDetailList);
         rcvProductListView.setAdapter(adapter);
